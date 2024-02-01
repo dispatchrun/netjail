@@ -162,8 +162,8 @@ originating rules.
 
 DNS rebinding attacks occur when an attacker attempts to forge the DNS responses
 recieved by an application, to route connections to addresses of their choosing.
-For example, they could cause the DNS resolution for example.com to resolve to
-127.0.0.1, resulting in the application unknowningly connecting to localhost
+For example, they could cause the DNS resolution for *example.com* to resolve to
+*127.0.0.1*, resulting in the application unknowningly connecting to localhost
 instead of a remote server.
 
 To prevent these types of attacks, the `netjail` package takes over the entire
