@@ -109,6 +109,9 @@ set of rules to the requests it serves:
 secureClient := &http.Client{
     Transport: &netjail.Transport{
         New: func() *http.Transport{
+            // We must return a different instance each time the
+            // function is called, the transport would otherwise
+            // panic if it sees the same value more than once.
             return http.DefaultTransport.(*http.Transport).Clone()
         },
     },
