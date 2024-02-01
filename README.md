@@ -45,6 +45,11 @@ go get github.com/stealthrocket/netjail
 The library covers tow main use cases: controlling network access at the HTTP
 and TCP layers.
 
+Programs can import the package with:
+```go
+import "github.com/stealthrocket/netjail"
+```
+
 ### Declaring rules for network access controls
 
 Programs configure the set of networks that the application can connect to by
