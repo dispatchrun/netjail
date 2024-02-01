@@ -29,11 +29,11 @@ endpoint. Security groups implemented by the network cannot prevent the program
 from connecting to the loopback interface, and a malicious input could forge
 requests to the local endpoint that the program was not supposed to make.
 
-Lambda is one example, but there are many others, like the application invoking
+Lambda is one example, but there are many others, like an application invoking
 itself on unprotected internal endpoints, or sending requests to sidecar
 containers. Programs that have the ability to open connections to addresses
-provided by user input must implement protections that the network layer cannot
-solve for, which is what this package solves for.
+extracted from user input must implement protections that the network layer
+cannot provide, which is what this package solves for.
 
 [firecracker]: https://firecracker-microvm.github.io/
 
