@@ -181,3 +181,26 @@ connection to an address that passed the checks. With this process, there is no
 risk of confusion between the validation and connection phases, effectively
 protecting the application against DNS rebinding attacks that would attempt to
 bypass network access controls.
+
+### Protection against software defects and supplychain attacks
+
+Software security threats come in many forms, each dependency of a program can
+become the target of an attacker, and beyond that, even the process by which the
+software is built and delivered can become the target of attackers. Producing
+secure software requires the combination of multiple mitigation strategies to
+defend against the variety of risks that the system is exposed to.
+
+To limit exposure to those risks, the `netjail` package is designed to have no
+dependencies besides the Go standard library, and will remain dependency-free.
+The package has a well-defined scope, if new features are added, it will always
+be preferable to bring the code *in-house* than take a dependency on a third
+party.
+
+We used design decisions that reduce the risk of seeing security exploits arise
+in buggy software. We limit the use of interface types, because abstractions
+make it more difficult to validate how the software will behave when components
+are replaced at run time. The use of concrete types offer stronger guarantees,
+and reduce the scope that tests need to cover. In addition, the library applies
+extensive validations against the inputs that it receives, and always defaults
+to **failing closed** or **failing loud** (e.g., blocking network connections,
+panicking in the presence of invalid state).
