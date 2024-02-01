@@ -24,8 +24,8 @@ Consider the case of deploying an application as an AWS Lambda Function. Lambda
 offers very strong isolation guarantees thanks to [Firecracker][firecracker],
 and the execution model guaranteeing that each instance of the function serves
 at most one concurrent invocation. However, the protocol used by AWS Lambda to
-receive function invocations uses a *long-poll* http request to an endpoint on
-localhost. Security groups or other network barriers cannot prevent the program
+receive function invocations uses a *long-poll* http request to a localhost
+endpoint. Security groups implemented by the network cannot prevent the program
 from connecting to the loopback interface, and a malicious input could forge
 requests to the local endpoint that the program was not supposed to make.
 
