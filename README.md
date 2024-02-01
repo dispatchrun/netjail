@@ -21,7 +21,7 @@ Classic network access controls are effective measures to lock down access to
 protected systems; however, they are not enough.
 
 Consider the case of deploying an application as an AWS Lambda Function. Lambda
-offers very strong isolation guarantees thanks to [Firecracker][firecracker],
+offers very strong isolation guarantees thanks to Firecracker,
 and the execution model guaranteeing that each instance of the function serves
 at most one concurrent invocation. However, the protocol used by AWS Lambda to
 receive function invocations uses a *long-poll* http request to a localhost
@@ -34,8 +34,6 @@ itself on unprotected internal endpoints, or sending requests to sidecar
 containers. Programs that have the ability to open connections to addresses
 extracted from user input must implement protections that the network layer
 cannot provide, which is what this package solves for.
-
-[firecracker]: https://firecracker-microvm.github.io/
 
 ## Installation
 
