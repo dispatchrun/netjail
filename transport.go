@@ -97,7 +97,7 @@ func (t *Transport) CloseIdleConnections() {
 }
 
 func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
-	return t.grabTransport(RulesOf(req.Context())).RoundTrip(req)
+	return t.grabTransport(ContextRules(req.Context())).RoundTrip(req)
 }
 
 func (t *Transport) grabTransport(rules *Rules) *http.Transport {

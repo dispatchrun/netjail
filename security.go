@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net"
 	"net/netip"
+	"slices"
 )
 
 var (
@@ -33,6 +34,17 @@ type Resolver interface {
 type Rules struct {
 	Allow []netip.Prefix
 	Block []netip.Prefix
+}
+
+// Clone returns a deep copy of the security rules.
+func (rules *Rules) Clone() *Rules {
+	if rules != nil {
+		rules = &Rules{
+			Allow: slices.Clone(rules.Allow),
+			Block: slices.Clone(rules.Block),
+		}
+	}
+	return rules
 }
 
 // String returns a string representation of the security rules.
@@ -85,7 +97,7 @@ func (rules *Rules) Accept(addr netip.Addr) bool {
 // DialFunc returns a dial function using the given resolver and dialer to
 // establish connections to addresses that are allowed by the security rules.
 //
-// The resolver is used to convert logical hostnames to IP addreses before
+// The resolver is used to convert logical hostnames to IP addresses before
 // applying the security rules.
 //
 // If the resolver is nil, net.DefaultResolver is used.
@@ -97,8 +109,12 @@ func (rules *Rules) DialFunc(rslv Resolver, dial DialFunc) DialFunc {
 	}
 
 	if dial == nil {
-		dial = (&net.Dialer{}).DialContext
+		dial = new(net.Dialer).DialContext
 	}
+
+	// Clone the rules so we're resistant to buggy applications that would
+	// modify the lists after the dial function has been created.
+	rules = rules.Clone()
 
 	return func(ctx context.Context, network, address string) (net.Conn, error) {
 		dialError := func(err error, addr net.Addr) error {
@@ -155,20 +171,3 @@ func ipnet(network string) string {
 		return network
 	}
 }
-
-// RulesOf returns the network access control rules embedded in
-// ctx.
-//
-// If the context did not contain any rules, nil is returned.
-func RulesOf(ctx context.Context) *Rules {
-	rules, _ := ctx.Value(networkAccessControlKey{}).(*Rules)
-	return rules
-}
-
-// WithRules returns a context which embeds the given network
-// access control rules.
-func WithRules(ctx context.Context, rules *Rules) context.Context {
-	return context.WithValue(ctx, networkAccessControlKey{}, rules)
-}
-
-type networkAccessControlKey struct{}

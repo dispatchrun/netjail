@@ -169,7 +169,7 @@ func TestTransport(t *testing.T) {
 		t.Run(test.scenario, func(t *testing.T) {
 			client := &http.Client{Transport: transport}
 
-			ctx := netjail.WithRules(context.Background(), &test.rules)
+			ctx := netjail.ContextWithRules(context.Background(), &test.rules)
 			req1, _ := http.NewRequestWithContext(ctx, http.MethodGet, url1, nil)
 			req2, _ := http.NewRequestWithContext(ctx, http.MethodGet, url2, nil)
 
