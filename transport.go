@@ -151,6 +151,13 @@ func (t *Transport) grabTransport(rules *Rules) *http.Transport {
 func (t *Transport) newTransport(rules *Rules) *http.Transport {
 	transport := t.New()
 
+	// Don't accept the default transport, this could result in reusing
+	// connections that were established before the network access control
+	// rules were applied.
+	if t, ok := http.DefaultTransport.(*http.Transport); ok && t == transport {
+		panic("netjail: transport returned by New is the default transport")
+	}
+
 	// Extract the dial function used by the transport so we can wrap it
 	// with the network access control check.
 	dialContext := transport.DialContext
