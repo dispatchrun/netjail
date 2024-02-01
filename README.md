@@ -1,4 +1,4 @@
-[![Build](https://github.com/stealthrocket/netjail/actions/workflows/build.yml/badge.svg)](https://github.com/stealthrocket/netjail/actions/workflows/test.yml)
+[![Build](https://github.com/stealthrocket/netjail/actions/workflows/test.yml/badge.svg)](https://github.com/stealthrocket/netjail/actions/workflows/test.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/stealthrocket/netjail)](https://goreportcard.com/report/github.com/stealthrocket/netjail)
 [![Go Reference](https://pkg.go.dev/badge/github.com/stealthrocket/netjail.svg)](https://pkg.go.dev/github.com/stealthrocket/netjail)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
