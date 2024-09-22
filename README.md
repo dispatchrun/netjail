@@ -46,7 +46,7 @@ go get github.com/stealthrocket/netjail
 
 ## Usage
 
-The library covers tow main use cases: controlling network access at the HTTP
+The library covers two main use cases: controlling network access at the HTTP
 and TCP layers.
 
 Programs can import the package with:
